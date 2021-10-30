@@ -1,9 +1,14 @@
+
 import { NavLink } from "react-router-dom";
+
+import Search from '../Search';
 
 import './style.css';
 
 const Header = ({className, pathname, setPathname}) => {
     const componentClass = className;
+
+
 
     return (
         <div className={componentClass}>
@@ -13,9 +18,8 @@ const Header = ({className, pathname, setPathname}) => {
             </NavLink>
 
             <div className={componentClass+"_right-content"}>
-                <div className={componentClass+"_search"}>
-
-                </div>
+                
+                <Search className="search" />
 
                 <div className={componentClass+"_links"}>
                     <NavLink exact onClick={() => setPathname()} activeClassName={'active-menu-item'} className='SectionNavigation-Item Section' to='/about-us'>

@@ -13,12 +13,25 @@ import Header from './components/Header';
 import Home from './components/Home';
 import Cart from './components/Cart';
 import Item from './components/Item';
+import Categories from './components/Categories';
+import CategoryItems from './components/CategoryItems';
+import AboutUs from './components/AboutUs';
 
 function App({ history }) {
   const [pathname, setPathname] = useState("");
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState([])
+  const [items, setItems] = useState([]);
+  const [error, setError] = useState("");
+  const [onLoad, setOnLoad] = useState(false);
+  const [status, setStatus] = useState(false);
+
+  const handleBuy = () => {
+    setStatus(true);
+    setCart([]);
+  }
 
   const addItemToCart = item => {
+    setStatus(false);
     setCart(cart => [...cart, item]);
   }
   
@@ -41,10 +54,6 @@ function App({ history }) {
     localStorage.setItem("cart", JSON.stringify(cart))
   }, [cart])
 
-  const [items, setItems] = useState([]);
-  const [error, setError] = useState("");
-  const [onLoad, setOnLoad] = useState(false);
-
   useEffect(() => {
     fetch("https://fakestoreapi.com/products")
       .then((res) => res.json())
@@ -65,19 +74,23 @@ function App({ history }) {
         </Route>
 
         <Route exact path='/about-us'>
-          <h1>О нас</h1>
+          <AboutUs className="about-us"/>
         </Route>
 
         <Route exact path='/categories'>
-          <h1>Категории</h1>
+          <Categories className="categories"/>
         </Route>
 
         <Route exact path='/cart'>
-          <Cart removeItemFromCart={removeItemFromCart} className="cart" items={cart} />
+          <Cart removeItemFromCart={removeItemFromCart} handleBuy={handleBuy} status={status} className="cart" items={cart} />
         </Route>
 
         <Route exact path='/item/:id'>
           <Item onLoad={onLoad} addItemToCart={addItemToCart} className="item" items={items} />
+        </Route>
+
+        <Route exact path='/category/:name'>
+          <CategoryItems className="category-items" addItemToCart={addItemToCart} />
         </Route>
         
         <Redirect from='/' to='/home'/>
