@@ -69,15 +69,15 @@ function App({ history }) {
     <div className="App">
       <Header className="header" pathname={pathname} setPathname={onSetPathname} />
       <Switch>
-        <Route exact path='/home'>
+        <Route path='/home'>
           <Home items={items} addItemToCart={addItemToCart} className="home"/>
         </Route>
 
-        <Route exact path='/about-us'>
+        <Route path='/about-us'>
           <AboutUs className="about-us"/>
         </Route>
 
-        <Route exact path='/categories'>
+        <Route path='/categories'>
           <Categories className="categories"/>
         </Route>
 
@@ -85,11 +85,11 @@ function App({ history }) {
           <Cart removeItemFromCart={removeItemFromCart} handleBuy={handleBuy} status={status} className="cart" items={cart} />
         </Route>
 
-        <Route exact path='/item/:id'>
+        <Route path='/item/:id'>
           <Item onLoad={onLoad} addItemToCart={addItemToCart} className="item" items={items} />
         </Route>
 
-        <Route exact path='/category/:name'>
+        <Route path='/category/:name'>
           <CategoryItems className="category-items" addItemToCart={addItemToCart} />
         </Route>
         
